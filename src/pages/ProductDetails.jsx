@@ -1,4 +1,5 @@
 import { useLoaderData } from "react-router-dom";
+
 export const productDetailsLoader = async ({ params }) => {
   const url = `https://www.course-api.com/react-store-products`;
   const response = await fetch(url);

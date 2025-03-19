@@ -1,7 +1,7 @@
 import { useLoaderData } from "react-router-dom";
-import { useRouteError } from "react-router-dom";
 import { Link } from "react-router-dom";
 const url = "https://www.course-api.com/react-store-products";
+
 export const productsLoader = async () => {
   const response = await fetch(url);
   const data = await response.json();
@@ -9,9 +9,6 @@ export const productsLoader = async () => {
 };
 const Products = () => {
   const products = useLoaderData();
-  //   const error = useRouteError();
-  //   console.log(error);
-
   return (
     <>
       <div className="pt-4 pb-12">

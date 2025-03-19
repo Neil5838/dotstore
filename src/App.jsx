@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { productsLoader } from "./pages/Products";
 import { productDetailsLoader } from "./pages/ProductDetails";
+import { signupAction } from "./pages/Signup";
 import {
   HomeLayout,
   Products,
@@ -40,6 +41,7 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <Signup />,
+    action: signupAction,
   },
   {
     path: "/login",

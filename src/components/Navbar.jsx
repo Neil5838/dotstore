@@ -12,7 +12,6 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
-  console.log(isOpen);
   return (
     <nav className="shadow">
       <div className="max-w-6xl w-[90vw] mx-auto sm:flex sm:justify-between sm:items-center p-0 sm:py-4">
