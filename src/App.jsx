@@ -22,19 +22,16 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Landing />,
-        errorElement: <SinglePageError />,
       },
       {
         path: "products",
         element: <Products />,
         loader: productsLoader,
-        errorElement: <SinglePageError />,
       },
       {
         path: "products/:id",
         element: <ProductDetails />,
         loader: productDetailsLoader,
-        errorElement: <SinglePageError />,
       },
     ],
   },
