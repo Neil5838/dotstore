@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Landing = () => {
   return (
     <section className="">
@@ -11,9 +13,12 @@ const Landing = () => {
           furnishing your entire home, find the perfect pieces to match your
           aesthetic.
         </p>
-        <button className="bg-cyan-300 text-black py-1.5 px-4 rounded-full font-semibold uppercase text-sm">
+        <Link
+          to="/products"
+          className="bg-cyan-300 text-black py-1.5 px-4 rounded-full font-semibold uppercase text-sm"
+        >
           Shop now
-        </button>
+        </Link>
       </div>
     </section>
   );

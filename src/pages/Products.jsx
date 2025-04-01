@@ -1,14 +1,19 @@
 import { useLoaderData } from "react-router-dom";
 import { Link } from "react-router-dom";
-const url = "https://www.course-api.com/react-store-products";
+import { customFetch } from "../utils";
 
-export const productsLoader = async () => {
-  const response = await fetch(url);
-  const data = await response.json();
-  return data;
+const url = "/react-store-products";
+
+export const loader = (queryClient) => async () => {
+  const response = await queryClient.ensureQueryData({
+    queryKey: ["products"],
+    queryFn: () => customFetch(url),
+  });
+  return { data: response.data };
 };
+
 const Products = () => {
-  const products = useLoaderData();
+  const { data: products } = useLoaderData();
   return (
     <>
       <div className="pt-4 pb-12">
@@ -25,10 +30,10 @@ const Products = () => {
                   src={image}
                   alt={name}
                 />
-                <div className="py-2">
+                <div className="p-2">
                   <h2 className="capitalize text-xl font-semibold">{name}</h2>
                   <p className="text-gray-400 my-1">{category}</p>
-                  <p className="text-gray-500 font-semibold">${price}</p>
+                  <p className="text-gray-500 font-semibold">${price / 100}</p>
                 </div>
               </article>
             </Link>

@@ -8,7 +8,7 @@ const HomeLayout = () => {
   const isPageLoading = navigation.state === "loading";
   return (
     <>
-      <Toaster position="bottom-right" />
+      <Toaster position="top-center" />
       <Navbar />
       <main className="max-w-6xl w-[90vw] mx-auto my-8">
         {isPageLoading ? (

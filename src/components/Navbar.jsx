@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { FaBarsStaggered, FaXmark } from "react-icons/fa6";
 import { Link, NavLink } from "react-router-dom";
+import { GiShoppingBag } from "react-icons/gi";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,6 +13,8 @@ const Navbar = () => {
   const closeNavbar = () => {
     setIsOpen(false);
   };
+
+  const { cartItems } = useSelector((store) => store.cart);
 
   return (
     <nav className="shadow">
@@ -23,21 +27,32 @@ const Navbar = () => {
               alt="logo"
             />
           </Link>
-          {isOpen ? (
-            <button
-              onClick={closeNavbar}
-              className="block sm:hidden text-2xl text-black cursor-pointer"
+          <div className="flex items-center gap-8">
+            <Link
+              className="font-semibold tracking-wider text-gray-600 relative sm:hidden"
+              to="/carts"
             >
-              <FaXmark />
-            </button>
-          ) : (
-            <button
-              onClick={toggleNavBtn}
-              className="block sm:hidden text-2xl text-black cursor-pointer"
-            >
-              <FaBarsStaggered />
-            </button>
-          )}
+              <GiShoppingBag className="text-2xl hover:scale-110 duration-300 transition-all" />
+              <span className="text-sm w-[18px] h-[18px] bg-cyan-700 text-white flex justify-center items-center rounded-full absolute -top-1 -right-1 font-bold animate-bounce">
+                {cartItems.length}
+              </span>
+            </Link>
+            {isOpen ? (
+              <button
+                onClick={closeNavbar}
+                className="block sm:hidden text-2xl text-black cursor-pointer"
+              >
+                <FaXmark />
+              </button>
+            ) : (
+              <button
+                onClick={toggleNavBtn}
+                className="block sm:hidden text-2xl text-black cursor-pointer"
+              >
+                <FaBarsStaggered />
+              </button>
+            )}
+          </div>
         </div>
 
         {/* for smaller screen */}
@@ -94,6 +109,17 @@ const Navbar = () => {
               >
                 Products
               </NavLink>
+            </li>
+            <li>
+              <Link
+                className="font-semibold tracking-wider text-gray-600 relative"
+                to="/carts"
+              >
+                <GiShoppingBag className="text-2xl hover:scale-110 duration-300 transition-all" />
+                <span className="text-sm w-[18px] h-[18px] bg-cyan-700 text-white flex justify-center items-center rounded-full absolute -top-1 -right-1 font-bold animate-bounce">
+                  {cartItems.length}
+                </span>
+              </Link>
             </li>
           </ul>
 

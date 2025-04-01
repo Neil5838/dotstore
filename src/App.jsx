@@ -1,7 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { productsLoader } from "./pages/Products";
-import { productDetailsLoader } from "./pages/ProductDetails";
-import { signupAction } from "./pages/Signup";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   HomeLayout,
   Products,
@@ -11,7 +9,18 @@ import {
   SinglePageError,
   Signup,
   Login,
+  Carts,
 } from "./pages";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+
+import { loader as productsLoader } from "./pages/Products";
+import { productDetailsLoader } from "./pages/ProductDetails";
+import { signupAction } from "./pages/Signup";
+import { useEffect } from "react";
+import { calculateTotal } from "./features/cart/cartslice";
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -26,12 +35,17 @@ const router = createBrowserRouter([
       {
         path: "products",
         element: <Products />,
-        loader: productsLoader,
+        loader: productsLoader(queryClient),
+        errorElement: <SinglePageError />,
       },
       {
         path: "products/:id",
         element: <ProductDetails />,
         loader: productDetailsLoader,
+      },
+      {
+        path: "carts",
+        element: <Carts />,
       },
     ],
   },
@@ -47,6 +61,16 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  const dispatch = useDispatch();
+  const { cartItems } = useSelector((store) => store.cart);
+  useEffect(() => {
+    dispatch(calculateTotal());
+  }, [cartItems]);
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 };
 export default App;
